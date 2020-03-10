@@ -9,8 +9,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Get Tag
-      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    - name: Git Setup
+      run: |
+        git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        git config --local user.email "grandcolline@gmail.com"
+        git config --local user.name "github-actions"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Get Git Tag
+      run: git fetch origin +refs/tags/*:refs/tags/*
     - run: git tag
     - name: Setup Node10
       uses: actions/setup-node@v1
@@ -18,6 +25,7 @@ jobs:
         node-version: '13'
     - name: Install git-chglog
       run: npm install -g lerna-changelog
+    - run: echo ${GITHUB_SHA}
     - name: Create CHANGELOG.md
       run: |
         echo "-------------------------------"
@@ -30,13 +38,19 @@ jobs:
         lerna-changelog --from=v1.0.0 > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
-    - name: Git Setup
+    - run: git checkout master
+    - name: Create CHANGELOG.md
       run: |
-        git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-        git config --local user.email "grandcolline@gmail.com"
-        git config --local user.name "github-actions"
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0 --to=${GITHUB_SHA}
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0 --to=v2.0.6
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0 > CHANGELOG.md
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Git Commit
       run: |
         git add CHANGELOG.md
