@@ -16,7 +16,7 @@ jobs:
     - name: Install git-chglog
       run: npm install -g lerna-changelog
     - name: Create CHANGELOG.md
-      run: lerna-changelog --from=v1.0.0 --to=${GITHUB_SHA} > CHANGELOG.md
+      run: lerna-changelog --from=v1.0.0 > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Git Setup
