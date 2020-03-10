@@ -16,6 +16,8 @@ jobs:
       run: npm install -g lerna-changelog
     - name: Create CHANGELOG.md
       run: lerna-changelog --from=v1.0.0 --to=v2.0.2
+      env:
+        GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
       #    - name: Git Setup
       #      run: |
       #        git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
