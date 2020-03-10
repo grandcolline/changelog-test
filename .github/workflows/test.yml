@@ -19,7 +19,7 @@ jobs:
     - name: Get Git Tag
       run: git fetch origin +refs/tags/*:refs/tags/*
     - run: git tag
-    - name: Setup Node10
+    - name: Setup Node13
       uses: actions/setup-node@v1
       with:
         node-version: '13'
@@ -33,12 +33,12 @@ jobs:
         echo "-------------------------------"
         lerna-changelog --from=v1.0.0 --to=${GITHUB_SHA}
         echo "-------------------------------"
-        lerna-changelog --from=v1.0.0 --to=v2.0.6
+        lerna-changelog --from=v1.0.0 --to=v2.0.12
         echo "-------------------------------"
         lerna-changelog --from=v1.0.0 > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
-    - run: git checkout master
+    - run: git checkout -b master origin/master
     - name: Create CHANGELOG.md
       run: |
         echo "-------------------------------"
