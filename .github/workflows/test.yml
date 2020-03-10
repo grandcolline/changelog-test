@@ -17,6 +17,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Get Git Tag
+      run: git fetch origin
+    - run: git tag
+    - name: Get Git Tag
       run: git fetch origin +refs/tags/*:refs/tags/*
     - run: git tag
     - name: Setup Node13
