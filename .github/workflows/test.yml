@@ -38,7 +38,9 @@ jobs:
         lerna-changelog --from=v1.0.0 > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
-    - run: git checkout -b master origin/master
+    - run: |
+        git checkout .
+        git checkout -b master origin/master
     - name: Create CHANGELOG.md
       run: |
         echo "-------------------------------"
