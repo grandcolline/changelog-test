@@ -1,6 +1,14 @@
 {
   "changelog": {
-    "repo": "grandcolline/changelog-test"
+    "repo": "grandcolline/changelog-test",
+    "labels": {
+      "breaking": ":boom: Breaking Change",
+      "enhancement": ":rocket: Enhancement",
+      "bug": ":bug: Bug Fix",
+      "documentation": ":memo: Documentation",
+      "internal": ":house: Internal"
+    },
+    "cacheDir": ".changelog"
   }
 }
 
