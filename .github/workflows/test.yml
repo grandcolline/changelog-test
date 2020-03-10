@@ -9,14 +9,24 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-    - uses: actions/setup-node@v1
+    - name: Get Tag
+      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    - name: Setup Node10
+      uses: actions/setup-node@v1
       with:
         node-version: '10.x'
     - name: Install git-chglog
       run: npm install -g lerna-changelog
     - name: Create CHANGELOG.md
-      run: lerna-changelog --from=v1.0.0 > CHANGELOG.md
+      run: |
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0 --to=${GITHUB_SHA}
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0 --to=v2.0.6
+        echo "-------------------------------"
+        lerna-changelog --from=v1.0.0 > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Git Setup
