@@ -12,12 +12,10 @@ jobs:
     - name: Get Tag
       run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
     - run: git tag
-    - run: git pull --tags
-    - run: git tag
     - name: Setup Node10
       uses: actions/setup-node@v1
       with:
-        node-version: '10.x'
+        node-version: '13'
     - name: Install git-chglog
       run: npm install -g lerna-changelog
     - name: Create CHANGELOG.md
