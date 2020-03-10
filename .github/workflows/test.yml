@@ -16,19 +16,19 @@ jobs:
     - name: Install git-chglog
       run: npm install -g lerna-changelog
     - name: Create CHANGELOG.md
-      run: lerna-changelog --from=v1.0.0 --to=v2.0.4
+      run: lerna-changelog --from=v1.0.0 --to=${GITHUB_SHA} > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
-      #    - name: Git Setup
-      #      run: |
-      #        git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-      #        git config --local user.email "grandcolline@gmail.com"
-      #        git config --local user.name "github-actions"
-      #      env:
-      #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #    - name: Git Commit
-      #      run: |
-      #        git add CHANGELOG.md
-      #        git commit -m "update CHANGELOG"
-      #        git push origin HEAD:master
+    - name: Git Setup
+      run: |
+        git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        git config --local user.email "grandcolline@gmail.com"
+        git config --local user.name "github-actions"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Git Commit
+      run: |
+        git add CHANGELOG.md
+        git commit -m "update CHANGELOG"
+        git push origin HEAD:master
 
