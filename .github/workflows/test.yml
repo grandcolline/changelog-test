@@ -26,6 +26,8 @@ jobs:
       run: npm install -g lerna-changelog
     - name: Test
       run: lerna-changelog
+      env:
+        GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Create CHANGELOG.md
       run: lerna-changelog > CHANGELOG.md
       env:
