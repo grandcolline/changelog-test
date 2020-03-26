@@ -24,9 +24,10 @@ jobs:
         node-version: '13'
     - name: Install git-chglog
       run: npm install -g lerna-changelog
+    - name: Test
+      run: lerna-changelog
     - name: Create CHANGELOG.md
-      run: |
-        lerna-changelog > CHANGELOG.md
+      run: lerna-changelog > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Git Commit
