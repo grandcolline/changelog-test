@@ -37,12 +37,12 @@ jobs:
         echo "lerna-changelog --to=v1.0.0 --from=${{ github.ref }}"
         lerna-changelog --to=v1.0.0 --from=${{ github.ref }}
         echo "-------------------------------"
-        echo "lerna-changelog --to=v1.0.0 --from=${TAG##*/} --next-version"
-        lerna-changelog --to=v1.0.0 --from=${TAG##*/} --next-version
+        echo "lerna-changelog --to=v1.0.0 --from=${TAG##*/}"
+        lerna-changelog --to=v1.0.0 --from=${TAG##*/}
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Create CHANGELOG.md
-      run: lerna-changelog --to=v1.0.0 --from=${{ github.ref }} > CHANGELOG.md
+      run: lerna-changelog --to=v1.0.0 --from=${TAG##*/} > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Git Commit
