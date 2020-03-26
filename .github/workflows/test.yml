@@ -36,7 +36,7 @@ jobs:
         echo "-------------------------------"
         lerna-changelog --from=v1.0.0 --to=${GITHUB_SHA}
         echo "-------------------------------"
-        lerna-changelog --from=v1.0.0 --to=v2.0.12
+        lerna-changelog --from=v1.0.0 --to=v2.1.1
         echo "-------------------------------"
         lerna-changelog --from=v1.0.0 > CHANGELOG.md
       env:
