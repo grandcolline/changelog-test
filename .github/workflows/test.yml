@@ -25,11 +25,20 @@ jobs:
     - name: Install git-chglog
       run: npm install -g lerna-changelog
     - name: Test
-      run: lerna-changelog
+      run: |
+        echo "-------------------------------"
+        echo "lerna-changelog"
+        lerna-changelog
+        echo "-------------------------------"
+        echo "lerna-changelog --to=v1.0.0 --from=${{ github.ref }}"
+        lerna-changelog --to=v1.0.0 --from=${{ github.ref }}
+        echo "-------------------------------"
+        echo "lerna-changelog --to=v1.0.0 --from=${{ github.ref }} --next-version"
+        lerna-changelog --to=v1.0.0 --from=${{ github.ref }} --next-version
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Create CHANGELOG.md
-      run: lerna-changelog > CHANGELOG.md
+      run: lerna-changelog --to=v1.0.0 --from=${{ github.ref }} > CHANGELOG.md
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Git Commit
