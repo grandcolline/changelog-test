@@ -30,11 +30,15 @@ jobs:
         echo "lerna-changelog"
         lerna-changelog
         echo "-------------------------------"
+        TAG="${{ github.ref }}"
+        echo ${TAG}
+        echo ${TAG##*/}
+        echo "-------------------------------"
         echo "lerna-changelog --to=v1.0.0 --from=${{ github.ref }}"
         lerna-changelog --to=v1.0.0 --from=${{ github.ref }}
         echo "-------------------------------"
-        echo "lerna-changelog --to=v1.0.0 --from=${{ github.ref }} --next-version"
-        lerna-changelog --to=v1.0.0 --from=${{ github.ref }} --next-version
+        echo "lerna-changelog --to=v1.0.0 --from=${TAG##*/} --next-version"
+        lerna-changelog --to=v1.0.0 --from=${TAG##*/} --next-version
       env:
         GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
     - name: Create CHANGELOG.md
